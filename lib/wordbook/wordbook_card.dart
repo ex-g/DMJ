@@ -3,14 +3,9 @@ import 'package:dmj/wordbook/word_model.dart';
 import 'package:flutter/material.dart';
 
 class WordbookCard extends StatefulWidget {
-  final String name, wordCount, wordTotal;
+  final String name;
 
-  const WordbookCard({
-    super.key,
-    required this.name,
-    required this.wordCount,
-    required this.wordTotal,
-  });
+  const WordbookCard({super.key, required this.name});
 
   @override
   State<WordbookCard> createState() => _WordbookCardState();
@@ -126,9 +121,9 @@ class _WordbookCardState extends State<WordbookCard> {
                         size: 14,
                       ),
                       const SizedBox(width: 5),
-                      Text(
-                        widget.wordCount,
-                        style: const TextStyle(fontSize: 12),
+                      const Text(
+                        "0",
+                        style: TextStyle(fontSize: 12),
                       ),
                       const Text("/"),
                       Text(

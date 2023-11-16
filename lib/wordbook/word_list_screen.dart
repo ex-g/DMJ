@@ -40,7 +40,10 @@ class _WordListScreenState extends State<WordListScreen> {
                   return Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.background,
-                      border: Border.all(width: 1),
+                      border: Border.all(
+                        width: 0.5,
+                        // color: Theme.of(context).colorScheme.background,
+                      ),
                     ),
                     child: SizedBox(
                       child: Row(
@@ -53,8 +56,9 @@ class _WordListScreenState extends State<WordListScreen> {
                                 child: Text(
                                   widget.words[index].eng,
                                   style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -67,8 +71,9 @@ class _WordListScreenState extends State<WordListScreen> {
                                 child: Text(
                                   widget.words[index].kor,
                                   style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),

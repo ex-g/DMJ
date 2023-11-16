@@ -39,7 +39,7 @@ class _ThirdSectionState extends State<HistoryScreen>
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Container(
               clipBehavior: Clip.none,
               child: Transform.translate(
@@ -185,10 +185,10 @@ class _ThirdSectionState extends State<HistoryScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  StaticCard(wordCount: "3개", time: "10분"),
-                  StaticCard(wordCount: "24개", time: "80분"),
-                  StaticCard(wordCount: "45개", time: "200분"),
-                  StaticCard(wordCount: "300개", time: "950분"),
+                  StaticCard(wordCount: "3개", time: "10m"),
+                  StaticCard(wordCount: "24개", time: "80m"),
+                  StaticCard(wordCount: "45개", time: "200m"),
+                  StaticCard(wordCount: "300개", time: "950m"),
                 ],
               ),
             )

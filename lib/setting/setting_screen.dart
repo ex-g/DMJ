@@ -47,31 +47,31 @@ class _SettingScreenState extends State<SettingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 5),
-            GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          title: const Text("다크 모드로 변경하시겠습니까?"),
-                          children: [
-                            TextButton(
-                              child: const Text("예"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                            TextButton(
-                              child: const Text("아니오"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                },
-                child: makeSetting("Dark Mode")),
+            // GestureDetector(
+            //     onTap: () {
+            //       showDialog(
+            //           context: context,
+            //           builder: (context) {
+            //             return SimpleDialog(
+            //               title: const Text("다크 모드로 변경하시겠습니까?"),
+            //               children: [
+            //                 TextButton(
+            //                   child: const Text("예"),
+            //                   onPressed: () {
+            //                     Navigator.pop(context);
+            //                   },
+            //                 ),
+            //                 TextButton(
+            //                   child: const Text("아니오"),
+            //                   onPressed: () {
+            //                     Navigator.pop(context);
+            //                   },
+            //                 ),
+            //               ],
+            //             );
+            //           });
+            //     },
+            //     child: makeSetting("Dark Mode")),
             makeSetting("Send FeedBack"),
             makeSetting("Share"),
             makeSetting("Privacy Policy"),

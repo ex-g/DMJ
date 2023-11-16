@@ -25,16 +25,16 @@ class StaticCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.text_fields,
-                    size: 15,
-                  ),
+                  Icon(Icons.text_fields,
+                      size: 15,
+                      color: Theme.of(context).appBarTheme.backgroundColor),
                   const SizedBox(width: 5),
                   Text(
                     wordCount,
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).appBarTheme.backgroundColor),
                   ),
                 ],
               ),
@@ -42,16 +42,16 @@ class StaticCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.timer,
-                    size: 15,
-                  ),
+                  Icon(Icons.timer,
+                      size: 15,
+                      color: Theme.of(context).appBarTheme.backgroundColor),
                   const SizedBox(width: 5),
                   Text(
                     time,
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).appBarTheme.backgroundColor),
                   ),
                 ],
               )
