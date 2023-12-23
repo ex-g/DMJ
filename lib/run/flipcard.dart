@@ -13,17 +13,21 @@ class WordFlipCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // // 화면 크기 조정
+    Size screenSize = MediaQuery.of(context).size;
+    double width = screenSize.width;
+    double height = screenSize.height;
     return Card(
+      color: Theme.of(context).colorScheme.background,
       elevation: 0.0,
       child: FlipCard(
         direction: FlipDirection.HORIZONTAL,
         side: CardSide.FRONT,
         speed: 300,
         front: Container(
-          width: 310,
-          height: 180,
+          width: width * 0.8,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).cardColor,
             borderRadius: const BorderRadius.all(
               Radius.circular(8.0),
             ),
@@ -54,10 +58,9 @@ class WordFlipCard extends StatelessWidget {
           ),
         ),
         back: Container(
-          width: 310,
-          height: 180,
+          width: width * 0.8,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).cardColor,
             borderRadius: const BorderRadius.all(
               Radius.circular(8.0),
             ),

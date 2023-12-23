@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114206196396",
+    "project_id": "zidanni-d4f6e",
+    "storage_bucket": "zidanni-d4f6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114206196396:android:ee2fba408667c4f1e09509",
+        "android_client_info": {
+          "package_name": "com.example.dmj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA9pmNPxHjehE1k2WWSUkECdw-HnDjsT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
