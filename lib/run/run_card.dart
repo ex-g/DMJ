@@ -7,17 +7,20 @@ import 'package:flutter/material.dart';
 
 class LineCard extends StatefulWidget {
   final IconData icon;
-  final String startStation, endStation, count, turn, wordbook, name, userId;
+  int money, basicTurn;
+  final String startStation, endStation, count, turn, wordbook, title, userId;
 
-  const LineCard({
+  LineCard({
     super.key,
     required this.icon,
+    required this.money,
+    required this.basicTurn,
     required this.startStation,
     required this.endStation,
     required this.count,
     required this.turn,
     required this.wordbook,
-    required this.name,
+    required this.title,
     required this.userId,
   });
 
@@ -28,54 +31,6 @@ class LineCard extends StatefulWidget {
 class _LineCardState extends State<LineCard> {
   CollectionReference<Map<String, dynamic>> collectionReference =
       FirebaseFirestore.instance.collection("Users");
-
-  List<WordFlipCard> words2 = [
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-    WordFlipCard(
-        eng: "eng",
-        kor: "kor",
-        engSentence: "engSentence",
-        korSentence: "korSentence"),
-  ];
 
   List<WordFlipCard> words = [];
   List<int> randomLst = [];
@@ -98,11 +53,11 @@ class _LineCardState extends State<LineCard> {
                   } else {
                     while (true) {
                       int random = Random().nextInt(snapshot.data!.docs.length);
-
+                      // 랜덤리스트에 이미 없을 때만 추가
                       if (!randomLst.contains(random)) {
                         randomLst.add(random);
                       }
-
+                      // 9개가 되면 끝
                       if (randomLst.length == 9) break;
                     }
                   }
@@ -116,14 +71,15 @@ class _LineCardState extends State<LineCard> {
               context,
               MaterialPageRoute(
                 builder: (context) => RunningScreen(
-                  randomList: widget.wordbook == "Basic Words" ? [] : randomLst,
-                  userId: widget.userId,
-                  userTurn: 1,
-                  wordbook: widget.wordbook,
-                  name: widget.name,
-                  nowTurn: 1,
-                  totalTurn: int.parse(widget.turn[0]),
-                ),
+                    randomList:
+                        widget.wordbook == "Basic Words" ? [] : randomLst,
+                    userId: widget.userId,
+                    basicTurn: widget.basicTurn,
+                    wordbook: widget.wordbook,
+                    title: widget.title,
+                    nowTurn: 1,
+                    totalTurn: int.parse(widget.turn[0]),
+                    money: widget.money),
               ),
             );
           },

@@ -24,7 +24,7 @@ class _CandWidgetState extends State<CandWidget> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width * 0.8,
-      // height: widget.width * 0.36,
+      height: widget.width * 0.36,
       child: InkWell(
         child: widget.text,
         onTap: () {

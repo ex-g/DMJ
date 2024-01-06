@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmj/run/game/reward.dart';
-import 'package:dmj/wordbook/word_model.dart';
+import 'package:dmj/run/game/coin_check.dart';
+import 'package:dmj/run/game/coin_select.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Result extends StatefulWidget {
-  List<String> userAnswer;
-  List<String> realAnswer;
-  List<Word> words;
-  int count, nowTurn, totalTurn, userTurn;
-  String name, wordbook, userId;
+  List<String> userAnswer, realAnswer, words;
+  int count, nowTurn, totalTurn, basicTurn, money;
+  String title, wordbook, userId;
 
   Result(
       {super.key,
@@ -19,9 +17,10 @@ class Result extends StatefulWidget {
       required this.count,
       required this.nowTurn,
       required this.totalTurn,
-      required this.name,
+      required this.title,
       required this.wordbook,
-      required this.userTurn,
+      required this.basicTurn,
+      required this.money,
       required this.userId});
 
   @override
@@ -42,96 +41,111 @@ class _ResultState extends State<Result> {
     var now = DateTime.now();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Result")),
-      body: Column(
-        children: [
-          StreamBuilder(
-            stream: collectionReference
-                .doc(widget.userId)
-                .collection("dayStamp")
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Text("데이터 없음");
-              } else {
-                final docs = snapshot.data!.docs;
-                if (docs.last.data()['date'] != dateFormatter.format(now)) {
-                  var newDate = dateFormatter.format(now);
-                  var year = int.parse(DateFormat('yyyy').format(now));
-                  var month = int.parse(DateFormat('MM').format(now));
-                  var day = int.parse(DateFormat('dd').format(now));
-
-                  collectionReference
-                      .doc(widget.userId)
-                      .collection("dayStamp")
-                      .doc(newDate)
-                      .set({
-                    "date": newDate,
-                    "year": year,
-                    "month": month,
-                    "day": day,
-                  });
-
-                  return const Text("");
+      appBar: AppBar(
+        title: const Text(
+          "Result",
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: Container(),
+      ),
+      body: PopScope(
+        canPop: false,
+        child: Column(
+          children: [
+            StreamBuilder(
+              stream: collectionReference
+                  .doc(widget.userId)
+                  .collection("dayStamp")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Text("데이터 없음");
                 } else {
-                  return Container();
+                  final docs = snapshot.data!.docs;
+                  if (docs.last.data()['date'] != dateFormatter.format(now)) {
+                    var newDate = dateFormatter.format(now);
+                    var year = int.parse(DateFormat('yyyy').format(now));
+                    var month = int.parse(DateFormat('MM').format(now));
+                    var day = int.parse(DateFormat('dd').format(now));
+
+                    collectionReference
+                        .doc(widget.userId)
+                        .collection("dayStamp")
+                        .doc(newDate)
+                        .set({
+                      "date": newDate,
+                      "year": year,
+                      "month": month,
+                      "day": day,
+                    });
+
+                    return const Text("");
+                  } else {
+                    return Container();
+                  }
                 }
-              }
-            },
-          ),
-          Column(
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columns: const [
-                    DataColumn(label: Text('영어')),
-                    DataColumn(label: Text('제출')),
-                    DataColumn(label: Text('정답')),
-                    DataColumn(label: Text('결과')),
-                  ],
-                  rows: [
-                    makeDataRow(0),
-                    makeDataRow(1),
-                    makeDataRow(2),
-                    makeDataRow(3),
-                    makeDataRow(4),
-                    makeDataRow(5),
-                    makeDataRow(6),
-                    makeDataRow(7),
-                    makeDataRow(8),
-                  ],
+              },
+            ),
+            Column(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: const [
+                      DataColumn(label: Text('영어')),
+                      DataColumn(label: Text('제출')),
+                      DataColumn(label: Text('정답')),
+                      DataColumn(label: Text('결과')),
+                    ],
+                    rows: [
+                      makeDataRow(0),
+                      makeDataRow(1),
+                      makeDataRow(2),
+                      makeDataRow(3),
+                      makeDataRow(4),
+                      makeDataRow(5),
+                      makeDataRow(6),
+                      makeDataRow(7),
+                      makeDataRow(8),
+                    ],
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("맞힌 갯수 : ${widget.count}"),
-                  SizedBox(width: width * 0.048),
-                  FloatingActionButton(
-                    child: const Icon(Icons.lock_open),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Reward(
-                            userTurn: widget.userTurn,
-                            wordbook: widget.wordbook,
-                            name: widget.name,
-                            totalTurn: widget.totalTurn,
-                            nowTurn: widget.nowTurn,
-                            rightAnswerCount: widget.count,
-                            userId: widget.userId,
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("맞힌 갯수 : ${widget.count}"),
+                    SizedBox(width: width * 0.048),
+                    FloatingActionButton(
+                      backgroundColor: const Color(0xFF86A845),
+                      child: const Icon(Icons.lock_open),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CoinSelect(
+                              basicTurn: widget.basicTurn,
+                              money: widget.money,
+                              wordbook: widget.wordbook,
+                              title: widget.title,
+                              totalTurn: widget.totalTurn,
+                              nowTurn: widget.nowTurn,
+                              rightAnswerCount: widget.count,
+                              userId: widget.userId,
+                              count: widget.count,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  )
-                ],
-              )
-            ],
-          )
-        ],
+                        );
+                      },
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -141,7 +155,7 @@ class _ResultState extends State<Result> {
       cells: [
         DataCell(Center(
             child: Text(
-          widget.words[index].eng,
+          widget.words[index],
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
         ))),
         DataCell(Center(child: Text(widget.userAnswer[index]))),

@@ -2,18 +2,16 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class WordFlipCard extends StatelessWidget {
-  String eng, kor, engSentence, korSentence;
+  String eng, kor;
   WordFlipCard({
     super.key,
     required this.eng,
     required this.kor,
-    required this.engSentence,
-    required this.korSentence,
   });
 
   @override
   Widget build(BuildContext context) {
-    // // 화면 크기 조정
+    // 화면 크기 조정
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
@@ -39,22 +37,17 @@ class WordFlipCard extends StatelessWidget {
               )
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
                 eng,
-                style: const TextStyle(
-                  fontSize: 60,
+                style: TextStyle(
+                  fontSize: eng.length > 12 ? 28 : 38,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20),
-              Text(
-                engSentence,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
+            ),
           ),
         ),
         back: Container(
@@ -72,22 +65,17 @@ class WordFlipCard extends StatelessWidget {
               ),
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
                 kor,
-                style: const TextStyle(
-                  fontSize: 60,
+                style: TextStyle(
+                  fontSize: kor.length > 6 ? 20 : 38,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20),
-              Text(
-                korSentence,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
+            ),
           ),
         ),
       ),
