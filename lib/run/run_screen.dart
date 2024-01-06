@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'package:dmj/home/home_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RunScreen extends StatefulWidget {
   const RunScreen({super.key});
@@ -1492,58 +1493,57 @@ class _RunScreenState extends State<RunScreen> {
   ];
 
   // 구글 로그인 (Android & IOS)
-  // Future<UserCredential> signInWithGoogle() async {
-  //   print("hi");
-  //   // Trigger the authentication flow
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  //   // Obtain the auth details from the request
-  //   final GoogleSignInAuthentication? googleAuth =
-  //       await googleUser?.authentication;
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-  //   final user = await FirebaseAuth.instance.signInWithCredential(credential);
+    final user = await FirebaseAuth.instance.signInWithCredential(credential);
 
-  //   // 처음이면 계정 만들기, 아니면 패스
-  //   var userLastLoginTime = user.user!.metadata.lastSignInTime;
-  //   var userCreationTime = user.user!.metadata.creationTime;
+    // 처음이면 계정 만들기, 아니면 패스
+    var userLastLoginTime = user.user!.metadata.lastSignInTime;
+    var userCreationTime = user.user!.metadata.creationTime;
 
-  //   if (userLastLoginTime == userCreationTime) {
-  //     collectionReference.doc(user.user?.uid).set({
-  //       "username": "${user.user?.displayName}",
-  //       "id": user.user?.uid,
-  //       "character": "basic",
-  //       "money": 0,
-  //       "basicTurn": 1
-  //     });
+    if (userLastLoginTime == userCreationTime) {
+      collectionReference.doc(user.user?.uid).set({
+        "username": "${user.user?.displayName}",
+        "id": user.user?.uid,
+        "character": "basic",
+        "money": 0,
+        "basicTurn": 1
+      });
 
-  //     collectionReference
-  //         .doc(user.user?.uid)
-  //         .collection("dayStamp")
-  //         .doc("1")
-  //         .set({"date": "start"});
+      collectionReference
+          .doc(user.user?.uid)
+          .collection("dayStamp")
+          .doc("1")
+          .set({"date": "start"});
 
-  //     for (var i = 1; i < 7; i++) {
-  //       collectionReference
-  //           .doc(user.user?.uid)
-  //           .collection('closet')
-  //           .doc('top$i')
-  //           .set({
-  //         "isChecked": false,
-  //         "name": "top$i",
-  //         "own": false,
-  //         "price": i * 10000,
-  //       });
-  //     }
-  //   }
+      for (var i = 1; i < 7; i++) {
+        collectionReference
+            .doc(user.user?.uid)
+            .collection('closet')
+            .doc('top$i')
+            .set({
+          "isChecked": false,
+          "name": "top$i",
+          "own": false,
+          "price": i * 10000,
+        });
+      }
+    }
 
-  //   return user;
-  // }
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1610,10 +1610,7 @@ class _RunScreenState extends State<RunScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LogIn()));
+                            signInWithGoogle();
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
